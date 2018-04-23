@@ -22,6 +22,8 @@ nextApp.prepare()
             } else if (repo === "react") {
                 repoTitle = "React by Facebook";
                 repoRoute = "https://api.github.com/repos/facebook/react";
+            } else {
+                return nextApp.render(req, res, "/stars", { repoTitle: undefined });
             }
 
             console.log(`[Server] /stars/${repo} requested!`);

@@ -10,10 +10,18 @@ export default class extends Component {
 
     render() {
         const { repoTitle, stars } = this.props;
-        return (
-            <div>
-                <h1>{repoTitle} has {stars} stars!</h1>
-            </div>
-        );
+        if (repoTitle) {
+            return (
+                <div>
+                    <h1>{repoTitle} has {stars} stars!</h1>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <h1>Unknown repo parameter to given!</h1>
+                </div>
+            );
+        }
     }
 }
