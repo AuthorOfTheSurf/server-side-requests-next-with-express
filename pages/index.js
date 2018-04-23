@@ -9,5 +9,12 @@ export default () => (
                 Next.JS Stars
             </a>
         </li>
+        <li>
+            <a
+                href="/stars/react"
+            >
+                React Stars
+            </a>
+        </li>
     </ul>
 )

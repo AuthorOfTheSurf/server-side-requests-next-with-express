@@ -4,18 +4,24 @@ const axios = require("axios");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
-const handle = app.getRequestHandler();
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
 
-app.prepare()
+nextApp.prepare()
     .then(() => {
         const server = express();
 
         server.get("/stars/:repo", (req, res) => {
             const { repo } = req.params;
+            let repoTitle;
             let repoRoute;
+
             if (repo === "nextjs") {
+                repoTitle = "Next.JS by Zeit";
                 repoRoute = "https://api.github.com/repos/zeit/next.js";
+            } else if (repo === "react") {
+                repoTitle = "React by Facebook";
+                repoRoute = "https://api.github.com/repos/facebook/react";
             }
 
             console.log(`[Server] /stars/${repo} requested!`);
@@ -24,7 +30,10 @@ app.prepare()
                 .get(repoRoute)
                 .then(response => {
                     const stars = response["data"]["stargazers_count"];
-                    app.render(req, res, "/stars", { stars });
+                    nextApp.render(req, res, "/stars", {
+                        repoTitle,
+                        stars,
+                    });
                 })
                 .catch(reason => console.log(reason));
         });
