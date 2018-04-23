@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 
 export default class extends Component {
+    // `nextApp.render` sends the given map of values here, under `ctx`
+    // We return a simple map that will be available under this.props
+    // throughout this component
     static getInitialProps(ctx) {
         return {
             repoTitle: ctx.query.repoTitle,

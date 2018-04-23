@@ -1,5 +1,9 @@
 import React from "react";
 
+// Not using Zeit's `Link` component here
+// Using anchor tags with `href` hits the express server
+// This will also allow backwards and forwards navigation
+// in the browser to work
 export default () => (
     <ul>
         <li>
