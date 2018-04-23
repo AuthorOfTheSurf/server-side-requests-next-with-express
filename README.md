@@ -1,45 +1,27 @@
-[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/zeit/next.js/tree/master/examples/custom-server-express)
+# Server-Side Requests by wrapping Next.JS in an Express server
 
-# Custom Express Server example
+### Intent
 
-## How to use
+For my current project at work I need to ensure that all requests come from the server side. I posted a question on [Stack Overflow]( https://stackoverflow.com/questions/49950309/next-js-how-to-make-all-requests-server-side ) that states this same requirement.
 
-### Using `create-next-app`
+This example shows how I solved the problem and got all requests to occur server-side.
 
-Download [`create-next-app`](https://github.com/segmentio/create-next-app) to bootstrap the example:
+### To Run
 
-```bash
-npx create-next-app --example custom-server-express custom-server-express-app
-# or
-yarn create next-app --example custom-server-express custom-server-express-app
-```
-
-### Download manually
-
-Download the example [or clone the repo](https://github.com/zeit/next.js):
+Install dependencies:
 
 ```bash
-curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/custom-server-express
-cd custom-server-express
+yarn
 ```
 
-Install it and run:
+Run app:
 
 ```bash
-npm install
-npm run dev
+yarn dev
 ```
 
-Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
+Visit page at `localhost:3000` and click around. Take a look at the comments in the code, as well as your browser and terminal logs.
 
-```bash
-now
-```
+### Contributing
 
-## The idea behind the example
-
-Most of the times the default Next server will be enough but sometimes you want to run your own server to customize routes or other kind of the app behavior. Next provides a [Custom server and routing](https://github.com/zeit/next.js#custom-server-and-routing) so you can customize as much as you want.
-
-Because the Next.js server is just a node.js module you can combine it with any other part of the node.js ecosystem. in this case we are using express to build a custom router on top of Next.
-
-The example shows a server that serves the component living in `pages/a.js` when the route `/b` is requested and `pages/b.js` when the route `/a` is accessed. This is obviously a non-standard routing strategy. You can see how this custom routing is being made inside `server.js`.
+I want to keep this example as simple, correct, and informative as possible. If there are issues, or valuable improvements to be made, feel free to PR!
