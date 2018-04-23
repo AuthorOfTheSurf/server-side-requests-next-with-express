@@ -6,6 +6,8 @@ For my current project at work I need to ensure that all requests come from the 
 
 This example shows how I solved the problem and got all requests to occur server-side.
 
+The starting point for this example was Zeit's `custom-server-express` Next.JS [example]( https://github.com/zeit/next.js/tree/canary/examples/custom-server-express )
+
 ### To Run
 
 Install dependencies:
