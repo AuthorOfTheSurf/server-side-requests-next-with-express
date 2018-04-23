@@ -5,7 +5,7 @@ const axios = require("axios");
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev });
-const handle = nextApp.getRequestHandler();
+const nextHandle = nextApp.getRequestHandler();
 
 nextApp.prepare()
     .then(() => {
@@ -51,9 +51,12 @@ nextApp.prepare()
                 .catch(reason => console.log(reason));
         });
 
-        // 404 for totally unknown routes
+        // Allow Next to handle all other routes:
+        // - Includes the numerous `/_next/...` routes which must be exposed
+        //   for the next app to work correctly
+        // - Includes 404'ing on unknown routes
         server.get("*", (req, res) => {
-            return handle(req, res)
+            return nextHandle(req, res)
         });
 
         server.listen(port, (err) => {
