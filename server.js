@@ -1,25 +1,42 @@
-const express = require('express')
-const next = require('next')
+const express = require('express');
+const next = require('next');
+const axios = require('axios');
 
-const port = parseInt(process.env.PORT, 10) || 3000
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const port = parseInt(process.env.PORT, 10) || 3000;
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
 app.prepare()
-.then(() => {
-  const server = express()
+    .then(() => {
+        const server = express();
 
-  server.get('/posts/:id', (req, res) => {
-    return app.render(req, res, '/posts', { id: req.params.id })
-  })
+        server.get('/stars/:repo', (req, res) => {
+            const { repo } = req.params;
+            let repoRoute;
+            if (repo === "nextjs") {
+                repoRoute = "https://api.github.com/repos/zeit/next.js";
+            }
 
-  server.get('*', (req, res) => {
-    return handle(req, res)
-  })
+            console.log(`[Server] /stars/${repo} requested!`);
+            console.log(`[Server] fetching ${repoRoute}!`);
+            axios
+                .get(repoRoute)
+                .then(response => {
+                    const stars = response["data"]["stargazers_count"];
+                    app.render(req, res, '/stars', { stars });
+                })
+                .catch(reason => console.log(reason));
+        });
 
-  server.listen(port, (err) => {
-    if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
-  })
-})
+        server.get('*', (req, res) => {
+            return handle(req, res)
+        });
+
+        server.listen(port, (err) => {
+            if (err) {
+                throw err;
+            }
+            console.log(`> Ready on http://localhost:${port}`)
+        });
+    });
